@@ -1,7 +1,16 @@
 "use strict";
 var connection = null;
 var clientID = 0;
-var IP = "g.duruofei.com";
+
+function utf8_to_b64( str ) {
+  return window.btoa(unescape(encodeURIComponent( str )));
+}
+
+function b64_to_utf8( str ) {
+  return decodeURIComponent(escape(window.atob( str )));
+}
+
+var IP = b64_to_utf8("Zy5kdXJ1b2ZlaS5jb20=");
 var PREFIX_GET = "get ";
 var PREFIX_SET = "set ";
 var APP_NAME = "App";
@@ -16,17 +25,16 @@ function connect() {
   serverUrl = scheme + "://" + IP;
 
   connection = new WebSocket(serverUrl, "json");
-  console.log("Created WebSocket");
+  // console.log("Created WebSocket");
 
   connection.onopen = function(evt) {
     console.log("On open WebSocket");
     // document.getElementById("text").disabled = false;
     // document.getElementById("send").disabled = false;
   };
-  console.log("Created OnOpen");
 
   connection.onmessage = function(evt) {
-    console.log("On Message");
+    // console.log("On Message");
     var msg = evt.data;
     // var msg = JSON.parse(evt.data);
     console.log("Message received: ");
@@ -39,11 +47,11 @@ function connect() {
     var k = msg.substr(0, pos);
     var v = msg.substr(pos + 1);
 
-    if (k == APP_NAME) {
+    if (k == $("#keyword").val()) {
       $("#result").val(v);
     }
   };
-  console.log("Created OnMessage");
+  // console.log("Created OnMessage");
 }
 
 function send(str) {
@@ -64,11 +72,15 @@ $(document).ready(function() {
   connect();
 
   $("#gGet").click(function() {
-    get(APP_NAME);
+    console.log($("#keyword").val());
+    get($("#keyword").val());
   });
 
   $("#gSet").click(function() {
-    set(APP_NAME, $("#keyword").val());
+    console.log($("#keyword").val());
+    console.log($("#result").val());
+
+    set($("#keyword").val(), $("#result").val());
   });
 });
 
