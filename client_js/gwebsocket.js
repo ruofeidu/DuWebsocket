@@ -37,8 +37,8 @@ function connect() {
     // console.log("On Message");
     var msg = evt.data;
     // var msg = JSON.parse(evt.data);
-    console.log("Message received: ");
-    console.dir(msg);
+    // console.log("Message received: ");
+    // console.dir(msg);
 
     var pos = msg.indexOf(':');
     if (pos < 0) {

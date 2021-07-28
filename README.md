@@ -18,4 +18,8 @@ This server is managed by PM2 and will automatically restart once crashed.
 
 ### Unity
 
+Add `GWebSocketClient` to any object to use.
+
 ### Javascript
+
+Add `gwebsocket.js` to any webpage to use.

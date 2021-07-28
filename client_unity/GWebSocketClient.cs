@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,15 @@ using NativeWebSocket;
 public class GWebSocketClient : MonoBehaviour
 {
     WebSocket m_WebSocket;
-    String kKey = "Param";
+    String k_Webserver = "d3NzOi8vZy5kdXJ1b2ZlaS5jb20=";
+    String kKey = "APP";
 
     // Start is called before the first frame update
     async void Start()
     {
-        m_WebSocket = new WebSocket("wss://g.duruofei.com");
+        byte[] decodedBytes = Convert.FromBase64String(k_Webserver);
+        string webServer = Encoding.UTF8.GetString(decodedBytes);
+        m_WebSocket = new WebSocket(webServer);
 
         m_WebSocket.OnOpen += () =>
         {
